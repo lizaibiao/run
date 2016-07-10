@@ -24,7 +24,7 @@
 
 package com.run.enmu;
 
-public class Test {
+public class Test2 {
 	/** 
 	 * @Title: main 
 	 * @Description: TODO
@@ -33,7 +33,7 @@ public class Test {
 	 */
 	public static void main(String[] args) {
 		System.out.println(EnStatus.DISABLE.getValue());
-		System.out.println("nihao");
+		System.out.println("nihao2");
 	}
 }
 
