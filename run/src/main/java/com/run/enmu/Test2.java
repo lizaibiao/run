@@ -35,6 +35,7 @@ public class Test2 {
 		System.out.println(EnStatus.DISABLE.getValue());
 		System.out.println("nio2");
 		System.out.println("nihao2");
+		System.out.println("nihao2");
 	}
 }
 
