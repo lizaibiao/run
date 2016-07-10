@@ -17,10 +17,11 @@ import org.springframework.stereotype.Repository;
 import com.run.common.entity.Page;
 
 
+
 @Repository
 public class GenericExtDaoImpl<T> implements IGenericExtDao<T> {
 
-	public final String selectAcountNamespace = "com.square.framework.common.entities.selectAcount";
+	public final String selectAcountNamespace = "com.run.framework.common.entities.selectAcount";
 
 	@Resource
 	private SqlSessionTemplate sqlSessionTemplate;
@@ -60,31 +61,31 @@ public class GenericExtDaoImpl<T> implements IGenericExtDao<T> {
 	public Page queryEntitiesWithPage(String namespace,
 			Map<String, Object> map, Page page) {
 		page = page == null ? new Page() : page;
-		// 1銆佽幏鍙栨瘡椤垫樉绀虹殑鏁版嵁锛�0鏉★級
+		// 1、获取每页显示的数据（10条）
 		RowBounds row = new RowBounds((page.getCurrentPage() - 1)
 				* page.getShowCount(), page.getShowCount());
 		page.setDataList(sqlSessionTemplate.selectList(namespace, map, row));
-		// 2銆佸皢鑾峰彇鐨勬�璁板綍鏁版斁杩沺ageCount
+		// 2、将获取的总记录数放进pageCount
 		page.setTotalResult(pageCount(namespace, map));
 		return page;
 	}
 
 	private int pageCount(String namespace, Map<String, Object> map) {
-		// 1.1銆佽幏鍙栨煡璇㈢殑sql璇彞
-		// 1.1.1銆佽幏鍙杝ql璇彞鏄犲皠
+		// 1.1、获取查询的sql语句
+		// 1.1.1、获取sql语句映射
 		MappedStatement mapper = sqlSessionTemplate.getConfiguration()
 				.getMappedStatement(namespace);
-		// 1.1.2銆佽幏鍙栨槧灏勭殑淇℃伅
+		// 1.1.2、获取映射的信息
 		BoundSql bound = mapper.getBoundSql(map);
-		// 鑾峰彇sql璇彞鐨勫弬鏁颁俊鎭紝瀵瑰簲鐨勮繕鏈塕esultMapping锛屼篃灏辨槸杩斿洖鐨勭粨鏋滀俊鎭�
+		// 获取sql语句的参数信息，对应的还有ResultMapping，也就是返回的结果信息
 		List<ParameterMapping> list = bound.getParameterMappings();
-		// 1.1.3銆佽幏鍙杝ql璇彞
+		// 1.1.3、获取sql语句
 		String querySql = bound.getSql();
 		if (!list.isEmpty()) {
 			/**
-			 * 灏唖ql璇彞涓殑闂彿锛堜篃灏辨槸鍙傛暟鍊硷紝璧峰垵鐢扁�锛熲�琛ㄧず锛夎浆鎹负灞炴�鍚嶇О锛屽叾涓殑鈥淺\鈥濇槸杞箟瀛楃
-			 * 鍋囪涓婅瘔鐨剄uerySql鏄痵elect AreaId from area where AreaId=?
-			 * 缁忚繃涓嬮潰鐨勮鍙ヨ浆鎹㈠悗鏄細select AreaId from area where AreaId=#{areaId}
+			 * 将sql语句中的问号（也就是参数值，起初由“？”表示）转换为属性名称，其中的“\\”是转义字符
+			 * 假设上诉的querySql是select AreaId from area where AreaId=?
+			 * 经过下面的语句转换后是：select AreaId from area where AreaId=#{areaId}
 			 */
 			for (ParameterMapping p : list) {
 				querySql = querySql.replaceFirst("\\?", "#{" + p.getProperty()
@@ -92,12 +93,12 @@ public class GenericExtDaoImpl<T> implements IGenericExtDao<T> {
 			}
 		}
 		Map<String, Object> param = new HashMap<String, Object>();
-		// 1.2銆佸皢sql璇彞鏀惧叆map
+		// 1.2、将sql语句放入map
 		param.put("querySql", querySql);
 		if (!map.isEmpty()) {
 			param.putAll(map);
 		}
-		// 1.3銆佽幏鍙栨�璁板綍鏁�
+		// 1.3、获取总记录数
 		int count = ((Integer) sqlSessionTemplate.selectOne(
 				selectAcountNamespace, param)).intValue();
 		return count;
