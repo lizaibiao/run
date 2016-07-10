@@ -34,6 +34,7 @@ public class Test2 {
 	public static void main(String[] args) {
 		System.out.println(EnStatus.DISABLE.getValue());
 		System.out.println("nihao2");
+		System.out.println("nihao2");
 	}
 }
 
