@@ -1,23 +1,24 @@
 package com.run.web.admin;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+
+
+import java.util.Date;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.run.enmu.EnStatus;
 import com.run.entity.UserEn;
 import com.run.service.UserService;
+import com.run.util.UUIDUtil;
 
 
 @Controller
 @RequestMapping(value = "/admin/user")
-public class UserController<T> {
+public class UserController {
 
-	@SuppressWarnings("rawtypes")
 	@Resource
 	public UserService userService;
 	
@@ -32,6 +33,12 @@ public class UserController<T> {
 	 */
 	@RequestMapping(value = "/saveUser")
 	private String saveUser(UserEn user){
+		user.setId(UUIDUtil.getUUID());
+		user.setCode("123");
+		user.setCreateTime(new Date());
+		user.setEmStatus(EnStatus.valueOf(0));
+		user.setMobile("13162371305");
+		user.setName("哈哈4");
 		userService.saveUser(user);
 		return "redirect:/admin/article/toAtricleList";
 	}

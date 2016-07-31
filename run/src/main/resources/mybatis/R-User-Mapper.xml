@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.run.entity.UserEn">
+	
+	<resultMap id="userMap" type="com.run.entity.UserEn">
+		<result column="ID" property="id" />
+		<result column="CODE" property="code" />
+		<result column="NAME" property="name" />
+		<result column="MOBILE" property="mobile" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="LAST_LOGIN_TIME" property="lastLoginTime" />
+		<result column="STATUS" property="status" />
+	</resultMap>	
+	
+	<sql id="columns">ID,CODE,NAME,MOBILE,CREATE_TIME,LAST_LOGIN_TIME,STATUS </sql>
+	
+	 <!-- 后台分页查询 -->
+<!-- 	 <select id="queryAdPage" resultMap="adMap" parameterType="java.util.Map">
+		SELECT  <include refid="columns"/> FROM ANM_ADVERTISEMENT
+		<where>
+				 <if test="entity.adverisementTitle != null and entity.adverisementTitle !='' ">
+		 		AND ADVERTISEMENT_TITLE LIKE  "%"#{entity.adverisementTitle}"%"
+				 </if>
+				  <if test="entity.adverisementType != null and entity.adverisementType !='' ">
+		 		AND ADVERTISEMENT_TYPE =#{entity.adverisementType}
+				 </if>	
+				AND FLAG_STATUS != '2'
+		</where>
+		ORDER BY FLAG_STATUS , AD_SORT ASC
+	</select> -->
+	<!-- 保存用户 -->
+	<insert id="saveUser" parameterType="com.run.entity.UserEn">
+	INSERT INTO   R_USER ( <include refid="columns"/> )
+		VALUES
+		(
+		#{id},
+		#{code},
+		#{name},
+		#{mobile},
+		#{createTime},
+		#{lastLoginTime},
+		#{status}
+		) 
+	</insert>
+	<!-- 修改 用户 -->
+	<update id="updateUser" parameterType="com.run.entity.UserEn">
+		UPDATE R_USER SET CODE='222' WHERE ID='23b3ab02-97ac-4d79-a844-4753ff2dee4b';
+	</update>
+	<!-- 获得一个广告 -->
+	<!--<select id="getOneAd" parameterType="com.ane.anm.entity.AdverisementEntity" resultMap="adMap">
+		SELECT <include refid="columns"/> 
+		FROM ANM_ADVERTISEMENT 
+		<where>
+			<if test="adverisementId !=null and adverisementId!=''">
+			   AND ADVERTISEMENT_ID=#{adverisementId}
+			</if>		
+		</where>
+	</select>
+ 	逻辑删除 广告
+	<update id="delAd" parameterType="com.ane.anm.entity.AdverisementEntity">
+		UPDATE ANM_ADVERTISEMENT 
+		<set>
+					<if test="flagStatus !=null  and flagStatus!=''">
+							FLAG_STATUS=#{flagStatus},
+					</if>
+		</set>
+		<where>
+			<if test="adverisementId !=null and adverisementId!=''">
+				AND ADVERTISEMENT_ID=#{adverisementId}
+			</if>
+		</where>
+	</update>
+	
+	移动端 查询广告 
+	<select id="getAdverListM" parameterType="java.util.Map" resultMap="adMap">
+				SELECT <include refid="columns"/> FROM ANM_ADVERTISEMENT
+				WHERE FLAG_STATUS='0'
+				ORDER BY   AD_SORT ASC
+	</select> -->
+</mapper>

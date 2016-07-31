@@ -9,7 +9,7 @@ import com.run.entity.UserEn;
  * @date: 2016年7月2日 下午10:37:01 
  * @param <T>
  */
-public interface UserService<T> {
+public interface UserService {
 	/*
 	 * 保存用户
 	 */

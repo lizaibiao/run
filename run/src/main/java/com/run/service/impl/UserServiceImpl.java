@@ -5,13 +5,13 @@ package com.run.service.impl;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.run.common.dao.IGenericExtDao;
 import com.run.entity.UserEn;
 import com.run.service.UserService;
 
 /**
- * 
  * @ClassName: UserServiceImpl 
  * @Description: 用户实现类
  * @author: lizaibiao
@@ -19,10 +19,13 @@ import com.run.service.UserService;
  * @param <T>
  */
 @Service
-public class UserServiceImpl<T> implements UserService<T> {
+@Transactional(readOnly=false) //对业务类进行事务增强的标注 
+@SuppressWarnings("all")
+public class UserServiceImpl implements UserService {
 
+	
 	@Resource
-	private IGenericExtDao<T> genericExtDao;
+	private IGenericExtDao genericExtDao;
 
 
 	/* (non Javadoc) 
@@ -33,7 +36,8 @@ public class UserServiceImpl<T> implements UserService<T> {
 	 */
 	@Override
 	public void saveUser(UserEn userEn) {
-		
+		genericExtDao.insert("com.run.entity.UserEn.saveUser", userEn);
+		genericExtDao.updateByPrimaryKey("com.run.entity.UserEn.updateUser", userEn);
 	}
 
 	

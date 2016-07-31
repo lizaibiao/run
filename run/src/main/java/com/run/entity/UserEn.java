@@ -36,9 +36,9 @@ public class UserEn {
 	private Date createTime;
 	
 	/*
-	 * 修改时间
+	 * 最后登录时间
 	 */
-	private Date lastModifyTime;
+	private Date lastLoginTime;
 	/*
 	 * 状态
 	 */
@@ -55,6 +55,7 @@ public class UserEn {
 	/**
 	 * @param status the status to set
 	 */
+	@Deprecated
 	public void setStatus(int status) {
 		setEmStatus(EnStatus.valueOf(status));
 	}
@@ -129,18 +130,20 @@ public class UserEn {
 		this.createTime = createTime;
 	}
 
+
+
 	/**
-	 * @return the lastModifyTime
+	 * @return the lastLoginTime
 	 */
-	public Date getLastModifyTime() {
-		return lastModifyTime;
+	public Date getLastLoginTime() {
+		return lastLoginTime;
 	}
 
 	/**
-	 * @param lastModifyTime the lastModifyTime to set
+	 * @param lastLoginTime the lastLoginTime to set
 	 */
-	public void setLastModifyTime(Date lastModifyTime) {
-		this.lastModifyTime = lastModifyTime;
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
 	}
 
 	/**
