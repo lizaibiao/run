@@ -133,18 +133,14 @@ public class GenericExtDaoImpl<T> implements IGenericExtDao<T> {
 		sqlSessionTemplate.update(namespace, list);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.square.common.dao.IGenericExtDao#queryByList(java.lang.String, java.util.List)
-	 */
+	
 	@Override
 	public List<T> queryByList(String namespace, List<T> list) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList(namespace, list);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.square.common.dao.IGenericExtDao#deleteBatchByCondition(java.lang.String, java.util.Map)
-	 */
+	
 	@Override
 	public void deleteBatchByCondition(String namespace,
 			Map<String, Object> condition) {

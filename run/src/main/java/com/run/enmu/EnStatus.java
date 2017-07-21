@@ -4,7 +4,7 @@ package com.run.enmu;
  * @ClassName: EnStatus
  * @Description: 实体状态枚举类
  * @author: lizaibiao
- * @date: 2016年7月2日 下午9:11:51
+ * @date: 2016年7 月2日 下午9:11:51
  */
 public enum EnStatus {
 	DISABLE(0),//不启用
