@@ -16,7 +16,7 @@ body {
  $(document).ready(function(){
 	 //用户list
   $("#userGrid").datagrid({
-	    //url :"${ctx}/admin/user/getUserPage.do", //获取数据地址
+	   // url :"${ctx}/admin/user/getUserPage.do", //获取数据地址
 	    iconCls : "icon-save", //图标
 		pagination : true, //开启分页
 		pageSize : 5, //每页显示数目 
@@ -49,7 +49,7 @@ body {
 		                   
 		                }
 		            }
-		]]/* ,
+		]],
 		toolbar: [{
 			    text : '添加',iconCls : 'icon-add',handler : function() {
 				$("#add").show();
@@ -83,7 +83,7 @@ body {
 			}
 		}]
 		
-		 */
+		
    });
  });
  
@@ -101,16 +101,16 @@ body {
 	  	var postData={};
 		 postData["code"]=$("#code").val();
 		 postData["name"]=$("#name").val();
-		 postData["createTime"]=$("#createTime").datetimebox('getValue');
-		 postData["createTime2"]=$("#createTime2").datetimebox('getValue');
-		    //$('#userGrid').datagrid('load','${ctx}/admin/user/getUserPage.do',postData);
-		  $('#userGrid').datagrid('options').queryParams=postData;        
-		  $('#userGrid').datagrid('load','${ctx}/admin/user/getUserPage.do');
+	     postData["createTime"]=$("#createTime").datetimebox('getValue');
+		 postData["createTime2"]=$("#createTime2").datetimebox('getValue'); 
+ 		//$('#userGrid').datagrid('load','${ctx}/admin/user/getUserPage.do',postData);
+ 		$('#userGrid').datagrid('options').queryParams=postData;
+ 		$('#userGrid').datagrid('load','${ctx}/admin/user/getUserPage.do');
  	};
 /* 重置
  */  
   function doReset(){
-	$("#tb input,#tb select").val("");
+	$("#tb input,#tb select").val("55555");
 	};
 	
 </script>
