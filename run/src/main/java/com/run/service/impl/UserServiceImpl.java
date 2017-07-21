@@ -2,14 +2,25 @@ package com.run.service.impl;
 
 
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.run.common.dao.IGenericDao;
 import com.run.common.dao.IGenericExtDao;
+import com.run.common.entity.Page;
+import com.run.dto.UserEnDto;
+import com.run.enmu.EnStatus;
 import com.run.entity.UserEn;
 import com.run.service.UserService;
+import com.run.util.RandomGUID;
 
 /**
  * @ClassName: UserServiceImpl 
@@ -19,13 +30,15 @@ import com.run.service.UserService;
  * @param <T>
  */
 @Service
-@Transactional(readOnly=false) //对业务类进行事务增强的标注 
+@Transactional(readOnly=false) //对业务类进行事务增强的   标注 
 @SuppressWarnings("all")
 public class UserServiceImpl implements UserService {
-
-	
 	@Resource
 	private IGenericExtDao genericExtDao;
+	@Resource
+	private IGenericDao genericDao;
+	
+    private String userEnMapper = UserEn.class.getName();
 
 
 	/* (non Javadoc) 
@@ -36,9 +49,31 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public void saveUser(UserEn userEn) {
-		genericExtDao.insert("com.run.entity.UserEn.saveUser", userEn);
-		genericExtDao.updateByPrimaryKey("com.run.entity.UserEn.updateUser", userEn);
+		Date date=new Date();
+		userEn.setId(RandomGUID.getRandomGUID());
+		userEn.setCreateTime(date);
+		userEn.setLastLoginTime(date);
+		userEn.setEmStatus(EnStatus.ENABLE);//启用
+		genericExtDao.insert(userEnMapper+".saveUser", userEn);
 	}
 
-	
+
+	/**
+	 * 分页查询用户
+	 */
+	public Page getUserPage(UserEnDto userEn, Page page,String sort,String sortName) {
+		Map<String, Object> condition=new HashMap<String, Object>();
+		condition.put("entity", userEn);
+		condition.put("sortName", sortName);
+		condition.put("sort", sort);
+		Page userPage=null;
+		try {
+		userPage= this.genericExtDao.queryEntitiesWithPage(userEnMapper+".queryUserPage",
+					   condition,page);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return userPage;
+	}
+
 }
