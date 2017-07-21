@@ -1,18 +1,17 @@
 package com.run.web.admin;
 
 
-
-import java.util.Date;
-
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.run.enmu.EnStatus;
+import com.alibaba.fastjson.JSONObject;
+import com.run.common.entity.Page;
+import com.run.dto.UserEnDto;
 import com.run.entity.UserEn;
 import com.run.service.UserService;
-import com.run.util.UUIDUtil;
 
 
 @Controller
@@ -22,24 +21,31 @@ public class UserController {
 	@Resource
 	public UserService userService;
 	
-	
 	/**
-	 * 
-	 * @Title: saveUser 
-	 * @Description: 保存用户实体
-	 * @param user
-	 * @return
-	 * @return: String
+	 * 保存用户实体
 	 */
 	@RequestMapping(value = "/saveUser")
-	private String saveUser(UserEn user){
-		user.setId(UUIDUtil.getUUID());
-		user.setCode("123");
-		user.setCreateTime(new Date());
-		user.setEmStatus(EnStatus.valueOf(0));
-		user.setMobile("13162371305");
-		user.setName("哈哈4");
+	@ResponseBody
+	private JSONObject saveUser(Model model,UserEn user){
+		JSONObject json = new JSONObject();
 		userService.saveUser(user);
-		return "redirect:/admin/article/toAtricleList";
+		return json;
+
 	}
+	/**
+	 * 查询用户实体（分页）
+	 */
+	@RequestMapping(value = "/getUserPage")
+	@ResponseBody
+	private JSONObject getUserPage(Model model,UserEnDto user,Page page2 ,int page, int rows, String order, String sort,String name2){
+		page2.setCurrentPage(page);
+		page2.setShowCount(rows);
+		JSONObject json = new JSONObject();
+		Page userPage=userService.getUserPage(user, page2,order,sort);
+		model.addAttribute("page", userPage);
+		json.put("rows",userPage.getDataList());
+		json.put("total",userPage.getTotalResult());
+		return json;
+		}
+	
 }
