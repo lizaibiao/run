@@ -7,12 +7,15 @@ import java.util.Map;
 import com.run.common.entity.Page;
 
 /**
- * 封装通用到层  
- * 实体关系映射的namespace:需要手动传命名空间
- * @author lzb
- * @param <T>
+ * <pre>
+ * IGenericDao DAO层泛型接口，定义基本的DAO功能
+ * @param <T> the generic type
+ * @since 实体关系映射的namespace必须按照 包名.实体类名 命名
+
  */
-public interface IGenericExtDao<T> {
+public interface IGenericDao<T> {
+	
+	static final String selectAcountNamespace = "com.ane.framework.common.entities.selectAcount";
 
 	public Page queryEntitiesWithPage(String namespace,
 			Map<String, Object> map, Page page);
@@ -24,7 +27,7 @@ public interface IGenericExtDao<T> {
 
 	public T queryObject(String namespace, T entity);
 
-	public void insert(String namespace, T entity);
+	public int insert(T entity);
 
 	public void insertBatch(String namespace, Collection<T> list);
 
@@ -41,5 +44,6 @@ public interface IGenericExtDao<T> {
 	public Integer queryCount(String namespace, T entity);
 	
 	public List<T> queryByList(String namespace,List<T> list);
+
 
 }

@@ -35,8 +35,10 @@ public class Page {
 	public int getCurrentPage() {
 		if (currentPage <= 0)
 			currentPage = 1;
-		if (currentPage > getTotalPage())
-			currentPage = getTotalPage();
+		//原始 注释2行
+//		if (currentPage > getTotalPage())
+//			currentPage = getTotalPage();
+		//特定为easyui分页
 		return currentPage;
 	}
 
