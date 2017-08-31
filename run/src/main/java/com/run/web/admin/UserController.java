@@ -30,8 +30,33 @@ public class UserController {
 		JSONObject json = new JSONObject();
 		userService.saveUser(user);
 		return json;
+	}
+	/**
+	 * 查询一个实体
+	 */
+	
+	@RequestMapping(value = "/getOneUser")
+	@ResponseBody
+	private JSONObject getOneUser(Model model,UserEn user){
+		JSONObject json = new JSONObject();
+		UserEn en	=userService.getOneUser(user);
+		json.put("en",en);
+		return json;
+	}
+	
+	/**
+	 * 删除用户实体
+	 */
+	@RequestMapping(value = "/delUser")
+	@ResponseBody
+	private JSONObject delUser(Model model,UserEnDto user,String ids){
+		JSONObject json = new JSONObject();
+		userService.delUser(user,ids);
+		return json;
 
 	}
+	
+	
 	/**
 	 * 查询用户实体（分页）
 	 */

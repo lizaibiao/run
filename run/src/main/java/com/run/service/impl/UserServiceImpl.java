@@ -21,6 +21,7 @@ import com.run.enmu.EnStatus;
 import com.run.entity.UserEn;
 import com.run.service.UserService;
 import com.run.util.RandomGUID;
+import com.run.util.StringUtils;
 
 /**
  * @ClassName: UserServiceImpl 
@@ -57,6 +58,15 @@ public class UserServiceImpl implements UserService {
 		genericExtDao.insert(userEnMapper+".saveUser", userEn);
 	}
 
+	/**
+	 * 删除用户实体
+	 */
+	@Override
+	public void delUser(UserEnDto userDto,String ids) {
+		List<Object> list=StringUtils.StringToList(ids, null);
+		int i=genericExtDao.deleteBatchByPrimaryKey(list, userEnMapper+".delUser");
+	}
+
 
 	/**
 	 * 分页查询用户
@@ -75,5 +85,12 @@ public class UserServiceImpl implements UserService {
 		}
 		return userPage;
 	}
+
+	@Override
+	public UserEn getOneUser(UserEn userEn) {
+		UserEn  en=	(UserEn) this.genericExtDao.queryObject(userEnMapper+".getOneUser", userEn);
+		return  en;
+	}
+
 
 }

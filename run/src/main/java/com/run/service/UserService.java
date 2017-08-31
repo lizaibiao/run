@@ -12,10 +12,22 @@ import com.run.entity.UserEn;
  * @param <T>
  */
 public interface UserService {
+	
+	/**
+	 * 查询一个实体
+	 * @param userEn
+	 */
+	   public UserEn getOneUser(UserEn userEn);
+
 	/*
 	 * 保存用户
 	 */
    public void saveUser(UserEn userEn);
+   
+	/*
+	 * 删除用户
+	 */
+  public void  delUser(UserEnDto userDto,String ids);
 	 /*
 	  * 分页
 	  */

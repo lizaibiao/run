@@ -15,7 +15,7 @@
 	<sql id="columns">ID,CODE,NAME,MOBILE,CREATE_TIME,LAST_LOGIN_TIME,STATUS </sql>
 	
 	 <!-- 后台用户分页查询 -->
-	 <select id="queryUserPage" resultType="UserEn" parameterType="java.util.Map">
+	 <select id="queryUserPage"  resultType="UserEn"  parameterType="java.util.Map">
 		SELECT  r.*,r.CREATE_TIME as createTime,r.LAST_LOGIN_TIME as lastLoginTime   FROM R_USER r 
 		<where>
 			<if test="entity.code !=null and entity.code!=''">
@@ -50,6 +50,24 @@
 	<update id="updateUser" parameterType="com.run.entity.UserEn">
 		UPDATE R_USER SET CODE='222' WHERE ID='23b3ab02-97ac-4d79-a844-4753ff2dee4b';
 	</update>
+	<!-- 批量删除用户 -->
+    <delete id="delUser" parameterType="java.util.List">
+        	delete from R_USER where id in
+	        <foreach item="id" collection="list" open="(" separator="," close=")">
+	            #{id}
+	        </foreach>
+    </delete>
+    
+    	<!-- 获取一个用户 -->
+    <select id="getOneUser" parameterType="com.run.entity.UserEn"  resultType="UserEn">
+			SELECT  r.*,r.CREATE_TIME as createTime,r.LAST_LOGIN_TIME as lastLoginTime   FROM R_USER r 
+		<where>
+		  <if test="id !=null and id!=''">
+			   AND r.id=#{id}
+			</if>
+		</where>
+	</select>
+    
 	<!-- 获得一个广告 -->
 	<!--<select id="getOneAd" parameterType="com.ane.anm.entity.AdverisementEntity" resultMap="adMap">
 		SELECT <include refid="columns"/> 
