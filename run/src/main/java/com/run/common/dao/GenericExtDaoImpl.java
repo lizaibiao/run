@@ -111,9 +111,9 @@ public class GenericExtDaoImpl<T> implements IGenericExtDao<T> {
 	}
 
 	@Override
-	public void deleteBatchByPrimaryKey(List<T> list, String namespace) {
+	public int deleteBatchByPrimaryKey(List<T> list, String namespace) {
 		// TODO Auto-generated method stub
-		sqlSessionTemplate.delete(namespace, list);
+		return sqlSessionTemplate.delete(namespace, list);
 	}
 
 	@Override

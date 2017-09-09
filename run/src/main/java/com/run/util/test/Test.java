@@ -13,10 +13,15 @@
 
 package com.run.util.test;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alibaba.fastjson.JSONObject;
 import com.run.enmu.EnStatus;
 import com.run.entity.UserEn;
 import com.run.service.UserService;
@@ -28,6 +33,7 @@ import com.run.util.UUIDUtil;
  * @author: lizaibiao
  * @date: 2016年7月31日 上午11:52:47  
  */
+@SuppressWarnings("unused")
 public class Test extends AbstractTest  {
 	@Autowired
 	private UserService userService;
@@ -36,14 +42,13 @@ public class Test extends AbstractTest  {
 	 */
    @org.junit.Test
     public void testExecute() {
-	    UserEn user=new UserEn();
-	    user.setId(UUIDUtil.getUUID());
-		user.setCode("123");
-		user.setCreateTime(new Date());
-		user.setEmStatus(EnStatus.valueOf(0));
-		user.setMobile("13162371305");
-		user.setName("哈哈4");
-	   userService.saveUser(user);
+	   UserEn userEn=new UserEn();
+	   userEn.setId("666");
+	   userEn.setName("666");
+	   userEn.setCode("666");
+	   userEn.setCreateTime(new Date());
+	   userService.saveUser(userEn);
+	   //userService.getUserPage(null, null,null,null);
     }
 	/** 
 	 * @Title: main 
@@ -52,7 +57,10 @@ public class Test extends AbstractTest  {
 	 * @return: void
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		JSONObject json = new JSONObject();
+		json.put("id", 1);
+		System.out.print(json);
+
 	}
 }
 

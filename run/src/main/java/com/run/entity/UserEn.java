@@ -1,6 +1,9 @@
 package com.run.entity;
 
+import java.io.Serializable;
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.run.enmu.EnStatus;
 
@@ -11,7 +14,11 @@ import com.run.enmu.EnStatus;
  * @author: lizaibiao
  * @date: 2016年7月2日 下午8:27:53
  */
-public class UserEn {
+public class UserEn implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8914645398619834819L;
 	/*
 	 * 主键
 	 */
@@ -119,6 +126,7 @@ public class UserEn {
 	/**
 	 * @return the createTime
 	 */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")   
 	public Date getCreateTime() {
 		return createTime;
 	}

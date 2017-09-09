@@ -1,5 +1,6 @@
 package com.run.common.dao;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -61,16 +62,18 @@ public class OffsetLimitInterceptor implements Interceptor {
      * @since:0.6
      */
     void processIntercept(final Object[] queryArgs) {
+        Map<String, Object> sortMap=null;
         MappedStatement ms = (MappedStatement) queryArgs[mappedStatementIndex];
         Object parameter = queryArgs[parameterIndex];
         final RowBounds rowBounds = (RowBounds) queryArgs[rowboundsIndex];
-        Map<String, Object> sortMap=  (Map<String, Object>) parameter;
+        if(parameter instanceof Map ){
+        sortMap=  (Map<String, Object>) parameter;
         System.err.println(queryArgs);
-        System.err.println(sortMap.get("sortName"));//
+        System.err.println(sortMap.get("sortName"));
         System.err.println(sortMap.get("sort"));
-        
-        
-
+        }else{
+        	sortMap=new HashMap<String, Object>();
+        }
 
         int offset = rowBounds.getOffset();
         int limit = rowBounds.getLimit();
