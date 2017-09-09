@@ -4,12 +4,13 @@ package com.run.service.impl;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,8 @@ import com.run.util.StringUtils;
 @Transactional(readOnly=false) //对业务类进行事务增强的   标注 
 @SuppressWarnings("all")
 public class UserServiceImpl implements UserService {
+    protected static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+
 	@Resource
 	private IGenericExtDao genericExtDao;
 	@Resource
@@ -72,6 +75,7 @@ public class UserServiceImpl implements UserService {
 	 * 分页查询用户
 	 */
 	public Page getUserPage(UserEnDto userEn, Page page,String sort,String sortName) {
+        log.info("haha");
 		Map<String, Object> condition=new HashMap<String, Object>();
 		condition.put("entity", userEn);
 		condition.put("sortName", sortName);
