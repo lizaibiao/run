@@ -29,6 +29,15 @@ body {
 					<td style="text-align:right;width:120px;">手机号<span style="color: red;">*</span></td>
 					<td><input type="text" class="easyui-textbox"  id="Umobile"  name="mobile" /></td>
 				</tr>
+				<tr>
+					<td style="text-align:right;width:120px;">状态</td>
+					<td>
+						<select>
+						  <option>1</option>
+						  <option>2</option>
+						</select>
+					</td>
+				</tr>
 			</table>
 	</form>
 </body>

@@ -39,8 +39,10 @@ body {
 		            {title : "用户编码",field : "code",sortable:true,align : 'center',width : 200},
 		            {title : "用户名",field : "name",sortable:true,align : 'center',width : 200},
 		            {title : "手机号",field : "mobile",sortable:true,align : 'center',width : 200},
-		            {title : "创建时间",field : "createTime",sortable:true,align : 'center',width : 200,formatter:formatDate},
-		            {title : "最后登录时间",field : "lastLoginTime",sortable:true,align : 'center',width : 200,formatter:formatDate},
+		            {title : "创建时间",field : "createTime",sortable:true,align : 'center',width : 200,formatter:function(time){
+		            	return formatDateTime(time);
+		            }},
+		            {title : "最后登录时间",field : "lastLoginTime",sortable:true,align : 'center',width : 200,formatter:formatDateChina},
 		            {title : "状态",field : "status",sortable:true,align : 'center',width : 200,
 		                formatter: function (value, rec) {
 		                   if(value=='1'){
@@ -128,12 +130,30 @@ body {
  });
  
 	/*  
-	*格式话时间
+	*格式话时间(中文)
 	*/
- function formatDate(value,row,index){  
+ function formatDateChina(value,row,index){  
      var unixTimestamp = new Date(value);  
      return unixTimestamp.toLocaleString();  
      };
+     
+  /* *格式化时间（标准） */
+function formatDateTime(inputTime) {    
+    var date = new Date(inputTime);  
+    var y = date.getFullYear();    
+    var m = date.getMonth() + 1;    
+    m = m < 10 ? ('0' + m) : m;    
+    var d = date.getDate();    
+    d = d < 10 ? ('0' + d) : d;    
+    var h = date.getHours();  
+    h = h < 10 ? ('0' + h) : h;  
+    var minute = date.getMinutes();  
+    var second = date.getSeconds();  
+    minute = minute < 10 ? ('0' + minute) : minute;    
+    second = second < 10 ? ('0' + second) : second;   
+    return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;    
+};  
+     
   /*
    *多条件查询方法
   */
@@ -163,15 +183,13 @@ body {
 	 function editRow(id){
 		  $.post("${ctx}/admin/user/getOneUser.do",{id:id},function(result){
 			  if(result !=null){
-				//$("#Uname").val(result.en.name);
-			//	$("#Ucode").val(result.en.code);
-		//	$("#Umobile").val(result.en.mobile);
-			    $("#update").show();
-				  $('#Uname').textbox("setValue","as");
-				$('#update').dialog({title : '修改用户',width : 500,height :200,top:150,closed : false,cache : false,modal : true,
+		        $("#update").show();
+				$('#update').dialog({title : '修改用户',width : 500,height :300,top:150,closed : false,cache : false,modal : true,
 				href : '${ctx}/admin/usermodel/updateuser.jsp',
-				onOpen:function(){
-					$('#Uname').val("赋值"); 
+			    onLoad: function () {
+					$("#Uname").textbox("setValue",result.en.name);
+					$("#Ucode").textbox("setValue",result.en.code);
+					$("#Umobile").textbox("setValue",result.en.mobile);
 				},
 					buttons : [
 						{text : '提交',iconCls : 'icon-ok',
@@ -194,14 +212,10 @@ body {
 						{iconCls : 'icon-no',
 							text : '关闭',
 							handler : function() {
-								$("#add").dialog('close');
+								$("#update").dialog('close');
 							}
 						} ]
 			});
-			
-			
-			//
-				  
 			  }else{
 					alert("Connection error");
 			  }
