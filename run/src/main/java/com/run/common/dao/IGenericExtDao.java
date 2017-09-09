@@ -30,7 +30,7 @@ public interface IGenericExtDao<T> {
 
 	public void deleteByPrimaryKey(String namespace, T entity);
 
-	public void deleteBatchByPrimaryKey(List<T> list, String namespace);
+	public int deleteBatchByPrimaryKey(List<T> list, String namespace);
 
 	public void deleteBatchByCondition(String namespace, Map<String, Object> condition);
 	
