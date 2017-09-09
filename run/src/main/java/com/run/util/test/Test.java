@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alibaba.fastjson.JSONObject;
 import com.run.enmu.EnStatus;
 import com.run.entity.UserEn;
 import com.run.service.UserService;
@@ -56,7 +57,10 @@ public class Test extends AbstractTest  {
 	 * @return: void
 	 */
 	public static void main(String[] args) {
-				
+		JSONObject json = new JSONObject();
+		json.put("id", 1);
+		System.out.print(json);
+
 	}
 }
 

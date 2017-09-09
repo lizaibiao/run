@@ -76,6 +76,8 @@ public class UserServiceImpl implements UserService {
 	 */
 	public Page getUserPage(UserEnDto userEn, Page page,String sort,String sortName) {
         log.info("haha");
+        log.error("haha");
+        log.debug("haha");
 		Map<String, Object> condition=new HashMap<String, Object>();
 		condition.put("entity", userEn);
 		condition.put("sortName", sortName);

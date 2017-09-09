@@ -57,8 +57,9 @@
 			                监控统计用的filter:stat
 			                日志用的filter:log4j
                	   防御SQL注入的filter:wall -->
-        <property name="filters" value="stat" />   
-	</bean> 
+<!--         <property name="filters" value="stat" />   
+ -->	
+ 	</bean> 
 	<!-- myBatis文件 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />

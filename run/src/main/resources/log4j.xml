@@ -7,8 +7,6 @@
 <!--                                                                       -->
 <!-- ===================================================================== -->
 
-<!-- $Id: log4j.xml,v 1.5 2011-07-27 08:33:45 benjamin Exp $ -->
-
 <!--
    | For more configuration infromation and examples see the Jakarta Log4j
    | owebsite: http://jakarta.apache.org/log4j
@@ -84,35 +82,15 @@
 		</filter>
 	</appender>
 
-	<category name="loxia.dao">
-		<priority value="ERROR" />
-	</category>
-
 	<!-- <category name="com.jumbo">
 		<priority value="INFO" />
 	</category> -->
 	
-	<category name="com.jumbo.wms.manager.warehouse">
-		<priority value="INFO" />
-	</category>
+	
 	<!-- <category name="com.jumbo.wms.manager.warehouse.QueueStaManagerProxyImpl">
 		<priority value="DEBUG" />
-	</category>
-	<category name="com.jumbo.wms.manager.task.vmiwarehouse.TaskCreateStaImpl">
-		<priority value="DEBUG" />
-	</category>
-	<category name="com.jumbo.wms.manager.warehouse.QstaManagerImpl">
-		<priority value="DEBUG" />
-	</category>
-	<category name="com.jumbo.wms.manager.warehouse.CreateStaManagerImpl">
-		<priority value="DEBUG" />
-	</category>
-	<category name="com.jumbo.wms.manager.warehouse.QstaManagerExecuteImpl">
-		<priority value="DEBUG" />
-	</category>
-	<category name="com.jumbo.wms.manager.warehouse.CreateStaManagerExecuImpl">
-		<priority value="DEBUG" />
-	</category> -->
+		</category>
+	 -->
 	<category name="com.alibaba.dubbo.rpc.filter.ExceptionFilter">
 		<priority value="OFF" />
 	</category>
@@ -120,18 +98,14 @@
 	<category name="org.springframework">
 		<priority value="ERROR" />
 	</category>
-
-	<category name="org.apache.activemq">
-		<priority value="ERROR" />
-	</category>
-
-	<category name="com.baozun.task">
-		<priority value="INFO" />
-	</category>
+	
+<!-- 
+Log4j建议只使用四个级别，优先级从高到低分别是 ERROR、WARN、INFO、DEBUG
+ -->
 
 	<root>
 		<level value="INFO" />
-		<!-- <appender-ref ref="CONSOLE" /> -->
+		<appender-ref ref="CONSOLE" />
 		<appender-ref ref="dfileDebug" />
 		<appender-ref ref="dfileInfo" />
 		<appender-ref ref="dfileWarn" />
