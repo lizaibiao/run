@@ -16,7 +16,7 @@
 			http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 	
 
-	<!-- 配置c3p0数据源 -->
+	<!-- 配置c3p0数据源 ============================== -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		 <!-- 数据库基本信息配置 -->
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -60,13 +60,17 @@
 <!--         <property name="filters" value="stat" />   
  -->	
  	</bean> 
+ 	<!-- 配置c3p0数据源  END============================== -->
+ 	
+ 	
+ 	
+ 	
 	<!-- myBatis文件 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatisCommon/MySqlmybatis.xml" />
 	    <!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
 		<property name="mapperLocations" value="classpath:mybatis/*.xml" />
-		
 	</bean>
 	
 	<!-- 配置sqlSession -->
@@ -74,7 +78,12 @@
     	<constructor-arg ref="sqlSessionFactory"/>
 	</bean>
 	
-
+	<!-- mybatis 面向接口配置 -->
+<!--  	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
+        <property name="sqlSessionFactory"  ref="sqlSessionFactory"/>  
+        <property name="basePackage" value="com.runnew.other.dao"></property>  
+    </bean>  
+ -->
 
 	<!-- 配置事务管理器 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

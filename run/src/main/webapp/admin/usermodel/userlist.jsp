@@ -190,20 +190,21 @@ function formatDateTime(inputTime) {
 					$("#Uname").textbox("setValue",result.en.name);
 					$("#Ucode").textbox("setValue",result.en.code);
 					$("#Umobile").textbox("setValue",result.en.mobile);
+					$("#Uid").val(result.en.id);
 				},
 					buttons : [
 						{text : '提交',iconCls : 'icon-ok',
 							handler : function() {//添加时,异步提交
 							$.ajax({
 										type : "POST",
-										url : "${ctx}/admin/user/saveUser.do",
-										data : $('#adduserForm').serialize(),// 你的formid
+										url : "${ctx}/admin/user/updateUser.do",
+										data : $('#updateuserForm').serialize(),// 你的formid
 										async : false,
 										error : function(request) {
 											alert("Connection error");
 										},
 										success : function(data) {
-											$("#add").dialog('close');
+											$("#update").dialog('close');
 									 		$('#userGrid').datagrid('load','${ctx}/admin/user/getUserPage.do');
 										}
 										});

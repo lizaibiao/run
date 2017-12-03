@@ -23,6 +23,12 @@ public interface UserService {
 	 * 保存用户
 	 */
    public void saveUser(UserEn userEn);
+   /**
+    * 修改用户
+    * @param userDto
+    * @param ids
+    */
+   public void updateUser(UserEn userEn);
    
 	/*
 	 * 删除用户

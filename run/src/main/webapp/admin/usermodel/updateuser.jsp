@@ -16,6 +16,7 @@ body {
 <body>
  <!--修改用户 -->
 	 <form id="updateuserForm">
+	  <input   type="hidden"  id="Uid" name="id"/>
 		<table style="width: 100%;border-collapse:separate; border-spacing:5px;padding-left:30px;padding-top:10px;" >
 				<tr>
 					<td style="text-align:right;width:120px;">用户编码<span style="color: red;">*</span></td>

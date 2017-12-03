@@ -40,7 +40,6 @@
 	</appender>
 	<appender name="dfileInfo" class="org.apache.log4j.DailyRollingFileAppender">
 			<param name="File" value="E://runlog//info.log" />
-		<!-- <param name="File" value="../wmslogs/info.log" /> -->
 		<!-- <param name="File" value="../../../../logs/service/production/wms/service/info.log" /> -->
 		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -55,7 +54,7 @@
 	</appender>
 	<appender name="dfileWarn" class="org.apache.log4j.DailyRollingFileAppender">
 		<!-- <param name="File" value="../wmslogs/warn.log" /> -->
-		<param name="File" value="../../../../logs/service/production/wms/service/warn.log" />
+		<param name="File" value="E://runlog//warn.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<!-- <param name="ConversionPattern" value="%d %-5p %l - %m%n" /> -->
@@ -69,7 +68,7 @@
 	</appender>
 	<appender name="dfileError" class="org.apache.log4j.DailyRollingFileAppender">
 		<!-- <param name="File" value="../wmslogs/error.log" /> -->
-		<param name="File" value="../../../../logs/service/production/wms/service/error.log" />
+		<param name="File" value="E://runlog//error.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<!-- <param name="ConversionPattern" value="%d %-5p %l - %m%n" /> -->
@@ -104,7 +103,7 @@ Log4j建议只使用四个级别，优先级从高到低分别是 ERROR、WARN�
  -->
 
 	<root>
-		<level value="INFO" />
+		<level value="ERROR" />
 		<appender-ref ref="CONSOLE" />
 		<appender-ref ref="dfileDebug" />
 		<appender-ref ref="dfileInfo" />

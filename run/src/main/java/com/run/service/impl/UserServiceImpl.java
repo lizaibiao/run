@@ -20,6 +20,7 @@ import com.run.common.entity.Page;
 import com.run.dto.UserEnDto;
 import com.run.enmu.EnStatus;
 import com.run.entity.UserEn;
+import com.run.service.BaseService;
 import com.run.service.UserService;
 import com.run.util.RandomGUID;
 import com.run.util.StringUtils;
@@ -34,8 +35,7 @@ import com.run.util.StringUtils;
 @Service
 @Transactional(readOnly=false) //对业务类进行事务增强的   标注 
 @SuppressWarnings("all")
-public class UserServiceImpl implements UserService {
-    protected static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+public class UserServiceImpl implements UserService , BaseService {
 
 	@Resource
 	private IGenericExtDao genericExtDao;
@@ -60,6 +60,12 @@ public class UserServiceImpl implements UserService {
 		userEn.setEmStatus(EnStatus.ENABLE);//启用
 		genericExtDao.insert(userEnMapper+".saveUser", userEn);
 	}
+	
+	
+	@Override
+	public void updateUser(UserEn userEn) {
+		genericExtDao.updateByPrimaryKey(userEnMapper+".updateUser", userEn);
+	}
 
 	/**
 	 * 删除用户实体
@@ -75,9 +81,6 @@ public class UserServiceImpl implements UserService {
 	 * 分页查询用户
 	 */
 	public Page getUserPage(UserEnDto userEn, Page page,String sort,String sortName) {
-        log.info("haha");
-        log.error("haha");
-        log.debug("haha");
 		Map<String, Object> condition=new HashMap<String, Object>();
 		condition.put("entity", userEn);
 		condition.put("sortName", sortName);
@@ -97,6 +100,8 @@ public class UserServiceImpl implements UserService {
 		UserEn  en=	(UserEn) this.genericExtDao.queryObject(userEnMapper+".getOneUser", userEn);
 		return  en;
 	}
+
+
 
 
 }

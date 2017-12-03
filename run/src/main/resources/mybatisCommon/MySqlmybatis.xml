@@ -22,6 +22,6 @@ PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"
 		<!-- <property name="dialectClass" value="com.run.common.dao.OracleDialect"/> -->
 			<property name="dialectClass" value="com.run.common.dao.MySQLDialect"/>
 		</plugin>
-	</plugins>
+</plugins>
 
 </configuration>

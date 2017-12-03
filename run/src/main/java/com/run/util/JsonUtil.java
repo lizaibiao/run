@@ -9,10 +9,10 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.run.entity.UserEn;
 
 /**
  * json转换的工具类
- * @author Justin Hu
  *
  */
 public class JsonUtil {
@@ -59,7 +59,7 @@ public class JsonUtil {
 	 * @throws ClientException
 	 * @since
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public static <T> T readValue(String json, Class<?> parametrized,
 			Class<?>... parameterClasses) {
 		if (json == null || json=="" ) {
@@ -106,5 +106,20 @@ public class JsonUtil {
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage(), e);
 		}
+	}
+
+	
+	
+	/**
+	 *main()
+	 */
+	public static void main(String[] args) {
+		  UserEn userEn=new UserEn();
+		   userEn.setId("666");
+		   userEn.setName("666");
+		   userEn.setCode("666");
+		   String str=JsonUtil.writeValue(userEn);
+		//   JsonUtil.readValue(json, parametrized, parameterClasses)
+		   System.out.println(str);
 	}
 }

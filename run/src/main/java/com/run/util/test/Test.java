@@ -25,7 +25,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.run.enmu.EnStatus;
 import com.run.entity.UserEn;
 import com.run.service.UserService;
+import com.run.util.JsonUtil;
 import com.run.util.UUIDUtil;
+import com.runnew.common.mybatis.BaseProvider;
+import com.runnew.other.dao.UserEnDao;
 
 /** 
  * @ClassName: Test 
@@ -37,18 +40,16 @@ import com.run.util.UUIDUtil;
 public class Test extends AbstractTest  {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private UserEnDao userEnDao;
+	
 	/*
 	 * RUN
 	 */
    @org.junit.Test
     public void testExecute() {
-	   UserEn userEn=new UserEn();
-	   userEn.setId("666");
-	   userEn.setName("666");
-	   userEn.setCode("666");
-	   userEn.setCreateTime(new Date());
-	   userService.saveUser(userEn);
-	   //userService.getUserPage(null, null,null,null);
+	UserEn user=   userEnDao.getById(1);
+	System.out.println(user.getName());
     }
 	/** 
 	 * @Title: main 
@@ -57,10 +58,8 @@ public class Test extends AbstractTest  {
 	 * @return: void
 	 */
 	public static void main(String[] args) {
-		JSONObject json = new JSONObject();
-		json.put("id", 1);
-		System.out.print(json);
-
+		 Class<?> modelClass = BaseProvider.threadModelClass.get();
+		 System.out.println(modelClass);
 	}
 }
 

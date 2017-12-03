@@ -48,8 +48,31 @@
 	</insert>
 	<!-- 修改 用户 -->
 	<update id="updateUser" parameterType="com.run.entity.UserEn">
-		UPDATE R_USER SET CODE='222' WHERE ID='23b3ab02-97ac-4d79-a844-4753ff2dee4b';
+		UPDATE R_USER 
+		<set>
+					<if test="code !=null ">
+							code=#{code},
+					</if>
+					<if test="name !=null ">
+							name=#{name},
+					</if>
+					<if test="mobile !=null">
+							mobile=#{mobile},
+					</if>
+					<if test="status !=null">
+							status=#{status},
+					</if>
+					<if test="1 ==1 ">
+							last_login_time=now(),
+					</if>
+		</set>
+		<where>
+			<if test="id !=null and id !=''">
+				AND ID=#{id}
+			</if>
+		</where>
 	</update>
+	
 	<!-- 批量删除用户 -->
     <delete id="delUser" parameterType="java.util.List">
         	delete from R_USER where id in
@@ -62,9 +85,9 @@
     <select id="getOneUser" parameterType="com.run.entity.UserEn"  resultType="UserEn">
 			SELECT  r.*,r.CREATE_TIME as createTime,r.LAST_LOGIN_TIME as lastLoginTime   FROM R_USER r 
 		<where>
-		  <if test="id !=null and id!=''">
-			   AND r.id=#{id}
-			</if>
+					<if test="id !=null ">
+								    r.id=#{id}
+				</if>
 		</where>
 	</select>
     
